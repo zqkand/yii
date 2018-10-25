@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use app\models\Country;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -70,6 +71,11 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $countries = Country::find()->orderBy('name')->all();
+        echo '<pre/>';
+        print_r($countries);
+
+        die;
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -79,7 +85,6 @@ class SiteController extends Controller
             return $this->goBack();
         } else {
             $model->password = '';
-
             return $this->render('login', [
                 'model' => $model,
             ]);
